@@ -1,8 +1,16 @@
-import assert from 'assert';
+import { expect } from 'chai'
 
-describe('test', () => {
-    it('test bool', () => {
-        assert(true);
+class User {
+    static isAuthenicated(username, password){
+        return true;
+    }
+}
+
+describe('User signin', () => {
+    it('succesfully authenticate user when given valid username and password', () => {
+        const username = 'valid-username';
+        const password = 'valid-password';
+        expect(User.isAuthenicated(username, password)).to.equal(true);
     })
 
 })
