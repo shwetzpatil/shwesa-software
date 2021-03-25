@@ -10,14 +10,16 @@ describe('User signin', () => {
         const password = 'valid-password';
         const userRepo = new UserRepo();
         signUpUser(username, password, userRepo);
-        expect(signInUser(username, password, userRepo)).to.equal(true);
+        const user = signInUser(username, password, userRepo);
+        console.log(user);
+        expect(user.isAuthenticated).to.equal(true);
     })
 
     it('should fail to authenticate user when given invalid username or password', () => {
         const username = 'invalid-username';
         const password = 'invalid-password';
         const userRepo = new UserRepo();
-        expect(signInUser(username, password, userRepo)).to.equal(false);
+        expect(() => signInUser(username, password, userRepo)).to.throw(Error);
     })
 
 });
