@@ -1,37 +1,7 @@
 import { expect } from 'chai'
-
-class User {
-    static isAuthenicated(username, password, userRepo){
-        const user = userRepo.getUserByUserName(username);
-        console.log(user)
-        if (user && user.username === username && user.password === password){
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-}
-
-class UserRepo {
-    constructor(){
-        this.users = {};
-    }
-
-    getUserByUserName = (username) => {
-      return this.users[username];
-    }
-
-    addUser = (username, password) => {
-        this.users[username] = {username: username, password: password};
-        return true;
-    }
-}
-
-function signUpUser(username, password, userRepo){
-    return userRepo.addUser(username, password);
-}
-
+import { signUpUser } from '../../src/use_cases/sign_up_user';
+import { User } from '../../src/entities/user';
+import { UserRepo } from '../../src/infrastructure/persistence/in_memory/user_repo';
 
 describe('User signin', () => {
     it('succesfully authenticate user when given valid username and password', () => {
@@ -51,26 +21,4 @@ describe('User signin', () => {
 
 });
 
-describe('User signup', () => {
-    it('succesfully sign up user when given valid username and password', () => {
-        const username = 'valid-username';
-        const password = 'valid-password';
-        const userRepo = new UserRepo();
-        expect(signUpUser(username, password, userRepo)).to.equal(true);
-    })
 
-});
-
-describe('UserRepo', () => {
-    it('adds user to storage and gets user by username', () => {
-        const username = 'valid-username';
-        const password = 'valid-password';
-        const userRepo = new UserRepo();
-        userRepo.addUser(username, password);
-        const expectedUser = userRepo.getUserByUserName(username);
-
-        expect(expectedUser).to.not.equal(null);
-        expect(expectedUser.username).to.equal(username);
-        expect(expectedUser.password).to.equal(password);
-    })
-});
