@@ -1,26 +1,6 @@
 import { expect } from "chai";
 import { User } from "../../src/entities/user";
-
-class Ticket {
-    constructor(title, creator){
-        this.title = title;
-        this.creator = creator;
-    }
-}
-
-function createTicket(ticketTitle, creator) {
-    if (!ticketTitle) {
-        throw new Error('Unauthenticated user can not create ticket');
-    }
-
-    if (!(creator instanceof User && creator.isAuthenticated === true)) {
-        throw new Error('Unauthenticated user can not create ticket');
-    }
-
-    var ticket = new Ticket(ticketTitle, creator);
-    return ticket;
-    
-}
+import { createTicket } from "../../src/use_cases/create_ticket";
 
 describe('Create a ticket', () => {
 
