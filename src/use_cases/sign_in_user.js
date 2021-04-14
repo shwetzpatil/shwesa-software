@@ -7,5 +7,5 @@ export function signInUser(username, password, userRepo) {
         user.isAuthenticated = true;
         return user;
     } 
-    throw new Error('Unable to signin user');
+    throw new UserSignInFailedException();
 }

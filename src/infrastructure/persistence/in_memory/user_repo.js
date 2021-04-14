@@ -1,3 +1,4 @@
+import { DuplicateUsernameException } from "../../../entities/exceptions";
 import { User } from "../../../entities/user";
 
 export class UserRepo {
@@ -7,13 +8,13 @@ export class UserRepo {
 
     getUserByUserName = (username) => {
         const user = this.users[username];
-        const password = user.password;
+        const password = user && user.password;
         return new User(username, password);
     };
 
     addUser = (username, password) => {
         if (this.users[username]){
-            throw new Error('Username already exists');
+            throw new DuplicateUsernameException();
         } else {
         this.users[username] = { username: username, password: password };
         return true;

@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { DuplicateUsernameException } from '../../src/entities/exceptions';
 import { User } from '../../src/entities/user';
 import { UserRepo } from '../../src/infrastructure/persistence/in_memory/user_repo';
 
@@ -23,7 +24,7 @@ describe('UserRepo', () => {
         const password2 = 'valid-password2';
         const userRepo = new UserRepo();
         userRepo.addUser(username, password);
-        expect(() => userRepo.addUser(username, password)).to.throw(Error);
+        expect(() => userRepo.addUser(username, password2)).to.throw(DuplicateUsernameException);
         
     });
 });

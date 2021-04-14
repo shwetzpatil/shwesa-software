@@ -1,8 +1,8 @@
 import { expect } from 'chai'
 import { signUpUser } from '../../src/use_cases/sign_up_user';
 import { signInUser } from '../../src/use_cases/sign_in_user';
-import { User } from '../../src/entities/user';
 import { UserRepo } from '../../src/infrastructure/persistence/in_memory/user_repo';
+import { UserSignInFailedException } from '../../src/entities/exceptions';
 
 describe('User signin', () => {
     it('succesfully authenticate user when given valid username and password', () => {
@@ -19,7 +19,7 @@ describe('User signin', () => {
         const username = 'invalid-username';
         const password = 'invalid-password';
         const userRepo = new UserRepo();
-        expect(() => signInUser(username, password, userRepo)).to.throw(Error);
+        expect(() => signInUser(username, password, userRepo)).to.throw(UserSignInFailedException);
     })
 
 });
